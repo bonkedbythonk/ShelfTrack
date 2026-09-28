@@ -7,4 +7,6 @@ public class Shelf
     
     public int ReaderId { get; set; }
     public Reader Reader { get; set; } = null!;
+    
+    public ICollection<Book> Books { get; set; } = new List<Book>();
 }
