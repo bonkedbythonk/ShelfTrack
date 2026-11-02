@@ -1,6 +1,6 @@
 namespace ShelfTrack.Domain;
 
-public class ReadingEntry
+public class ReadingProgress
 {
     public int Id { get; set; }
     public ReadingStatus Status { get; set; }

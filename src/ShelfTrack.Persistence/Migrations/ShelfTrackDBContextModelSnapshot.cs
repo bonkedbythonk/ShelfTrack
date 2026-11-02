@@ -87,7 +87,7 @@ namespace ShelfTrack.Persistence.Migrations
                     b.ToTable("Readers");
                 });
 
-            modelBuilder.Entity("ShelfTrack.Domain.ReadingEntry", b =>
+            modelBuilder.Entity("ShelfTrack.Domain.ReadingProgress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace ShelfTrack.Persistence.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("ReadingEntries");
+                    b.ToTable("ReadingProgress");
                 });
 
             modelBuilder.Entity("ShelfTrack.Domain.Shelf", b =>
@@ -159,10 +159,10 @@ namespace ShelfTrack.Persistence.Migrations
                     b.Navigation("Reader");
                 });
 
-            modelBuilder.Entity("ShelfTrack.Domain.ReadingEntry", b =>
+            modelBuilder.Entity("ShelfTrack.Domain.ReadingProgress", b =>
                 {
                     b.HasOne("ShelfTrack.Domain.Book", "Book")
-                        .WithMany("ReadingEntries")
+                        .WithMany("ReadingProgress")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -183,7 +183,7 @@ namespace ShelfTrack.Persistence.Migrations
 
             modelBuilder.Entity("ShelfTrack.Domain.Book", b =>
                 {
-                    b.Navigation("ReadingEntries");
+                    b.Navigation("ReadingProgress");
                 });
 
             modelBuilder.Entity("ShelfTrack.Domain.Reader", b =>

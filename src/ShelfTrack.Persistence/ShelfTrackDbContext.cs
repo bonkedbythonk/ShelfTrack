@@ -7,7 +7,7 @@ public class ShelfTrackDbContext(DbContextOptions<ShelfTrackDbContext> options) 
 {
     public DbSet<Reader> Readers { get; set; } = null!;
     public DbSet<Book> Books { get; set; } = null!;
-    public DbSet<ReadingEntry> ReadingEntries { get; set; } = null!;
+    public DbSet<ReadingProgress> ReadingProgress { get; set; } = null!;
     public DbSet<Shelf> Shelves { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -12,6 +12,6 @@ public class Book
     public int ReaderId { get; set; }
     public Reader Reader { get; set; } = null!;
     
-    public ICollection<ReadingEntry> ReadingEntries { get; set; } = new List<ReadingEntry>();
+    public ICollection<ReadingProgress> ReadingProgress { get; set; } = new List<ReadingProgress>();
     public ICollection<Shelf> Shelves { get; set; } = new List<Shelf>();
 }

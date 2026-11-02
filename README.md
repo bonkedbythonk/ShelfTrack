@@ -13,7 +13,7 @@ The solution follows the layered architecture from the technical design (chapter
 |---|---|---|
 | `src/ShelfTrack.Web` | Presentation | Razor Pages, forms, login |
 | `src/ShelfTrack.Application` | Application | Services (`BookService`, `ShelfService`, `ReadingProgressService`) and the interfaces for storage and the book API |
-| `src/ShelfTrack.Domain` | Domain | `Reader`, `Book`, `Shelf`, `ReadingEntry`, `ReadingStatus` |
+| `src/ShelfTrack.Domain` | Domain | `Reader`, `Book`, `Shelf`, `ReadingProgress`, `ReadingStatus` |
 | `src/ShelfTrack.Persistence` | Persistence | EF Core `DbContext`, migrations, repositories (SQLite) |
 | `src/ShelfTrack.ApiWrapper` | API Wrapper | `BookApiClient` for Google Books, including the fallback |
 | `tests/ShelfTrack.Tests` | Tests | Unit tests for the Application layer |
