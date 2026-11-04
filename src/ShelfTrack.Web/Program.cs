@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using ShelfTrack.Persistence;
@@ -16,7 +17,11 @@ builder.Services.AddDbContext<ShelfTrackDbContext>(options =>
 builder.Services.AddScoped<IPasswordHasher, IdentityPasswordHasher>();
 builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
 builder.Services.AddScoped<AccountService>();
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login";
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +36,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

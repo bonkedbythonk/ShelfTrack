@@ -1,19 +1,22 @@
 @page
-@model ShelfTrack.Web.Pages.Login
-
+@model LoginModel
 @{
-    Layout = null;
+    ViewData["Title"] = "Inloggen";
 }
 
-<!DOCTYPE html>
+<h1>Inloggen</h1>
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-<div>
-    
-</div>
-</body>
-</html>
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Inloggen</button>
+</form>
