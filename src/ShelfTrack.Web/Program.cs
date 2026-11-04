@@ -1,5 +1,10 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using ShelfTrack.Persistence;
+using ShelfTrack.Web.Security;
+using ShelfTrack.Application.Interfaces;
+using ShelfTrack.Application.Services;
+using ShelfTrack.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +13,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<ShelfTrackDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
+builder.Services.AddScoped<IPasswordHasher, IdentityPasswordHasher>();
+builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
+builder.Services.AddScoped<AccountService>();
 
 var app = builder.Build();
 
