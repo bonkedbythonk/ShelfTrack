@@ -26,6 +26,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                    @if(User.Identity?.IsAuthenticated == true)
+                    {
+                        <li class="nav-item">
+                            <form asp-page="/Logout" method="post">
+                                <button
+                                    type="submit" class="nav-link btn btn-link text-dark">Uitloggen
+                                </button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Login">Inloggen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Register">Registreren</a>
+                        </li>
+                    }
                     </ul>
                 </div>
             </div>
