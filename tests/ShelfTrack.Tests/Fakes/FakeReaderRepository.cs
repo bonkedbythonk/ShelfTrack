@@ -19,4 +19,10 @@ public class FakeReaderRepository : IReaderRepository
         Readers.Add(reader);
         return Task.CompletedTask;
     }
+    
+    public Task<Reader?> GetByEmailAsync(string email)
+    {
+        var reader = Readers.FirstOrDefault(r => r.Email == email);
+        return Task.FromResult(reader);
+    }
 }

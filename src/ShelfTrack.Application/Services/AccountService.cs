@@ -22,4 +22,17 @@ public class AccountService(IReaderRepository readerRepository, IPasswordHasher 
         await readerRepository.AddAsync(reader);
         return true;
     }
+    
+    public async Task<Reader?> LoginAsync(string email, string password)
+    {
+        string normalizedEmail = email.Trim().ToLower();
+        var reader = await readerRepository.GetByEmailAsync(normalizedEmail);
+        
+        if (reader == null || !passwordHasher.Verify(password, reader.PasswordHash))
+        {
+            return null;
+        }
+        
+        return reader;
+    }
 }

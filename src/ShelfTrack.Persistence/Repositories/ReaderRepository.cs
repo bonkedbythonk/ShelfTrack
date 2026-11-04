@@ -16,4 +16,9 @@ public class ReaderRepository(ShelfTrackDbContext context) : IReaderRepository
         context.Readers.Add(reader);
         await context.SaveChangesAsync();
     }
+    
+    public async Task<Reader?> GetByEmailAsync(string email)
+    {
+        return await context.Readers.FirstOrDefaultAsync(r => r.Email == email);
+    }
 }
