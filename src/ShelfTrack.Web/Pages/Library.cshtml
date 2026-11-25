@@ -1,5 +1,32 @@
 @page
 @model LibraryModel
+@{
+    ViewData["Title"] = "Bibliotheek";
+}
 
-<h1>bibliotheek</h1>
-<p>Hier komen je boeken te staan, @User.Identity?.Name.</p>
+<h1>Bibliotheek</h1>
+
+<a asp-page="/AddBook" class="btn btn-primary mb-3">Boek toevoegen</a>
+
+@if (Model.Books.Count == 0)
+{
+    <p>Je hebt nog geen boeken. Voeg je eerste boek toe.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr><th>Titel</th><th>Auteur</th><th>Pagina's</th></tr>
+        </thead>
+        <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.PageCount</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

@@ -37,4 +37,19 @@ public class BookServiceTests
         Assert.False(result);
         Assert.Empty(bookRepository.Books);
     }
+
+    [Fact]
+    public async Task AddAsync_EmptyAuthor_ReturnsFalse()
+    {
+        // Arrange
+        var bookRepository = new FakeBookRepository();
+        var bookService = new BookService(bookRepository);
+        
+        // Act
+        bool result = await bookService.AddAsync(1, "Testboek", " ", 320, null, null);
+        
+        // Assert
+        Assert.False(result);
+        Assert.Empty(bookRepository.Books);
+    }
 }
