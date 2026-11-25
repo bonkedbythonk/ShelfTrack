@@ -1,10 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShelfTrack.Application.Services;
+using ShelfTrack.Web.Security;
 
 namespace ShelfTrack.Web.Pages;
 
@@ -20,7 +18,7 @@ public class LoginModel(AccountService accountService) : PageModel
     [Required(ErrorMessage = "Vul een wachtwoord in.")]
     public string Password { get; set; } = string.Empty;
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
     {
         if (!ModelState.IsValid)
         {
@@ -35,14 +33,13 @@ public class LoginModel(AccountService accountService) : PageModel
             return Page();
         }
 
-        var claims = new List<Claim>
+        await ReaderSignIn.SignInAsync(HttpContext, reader);
+        
+        if (Url.IsLocalUrl(returnUrl))
         {
-            new(ClaimTypes.NameIdentifier, reader.Id.ToString()),
-            new(ClaimTypes.Name, reader.Email)
-        };
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-        return RedirectToPage("/Index");
+            return LocalRedirect(returnUrl);
+        }
+        return RedirectToPage("/Library");
     }
     
 }

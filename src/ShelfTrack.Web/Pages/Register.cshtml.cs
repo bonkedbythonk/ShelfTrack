@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ShelfTrack.Application.Services;
+using ShelfTrack.Web.Security;
 
 namespace ShelfTrack.Web.Pages;
 
@@ -17,9 +18,7 @@ public class RegisterModel(AccountService accountService) : PageModel
     [Display(Name = "Wachtwoord")]
     [Required(ErrorMessage = "Vul een wachtwoord in.")]
     public string Password { get; set; } = string.Empty;
-
-    public bool Registered { get; set; }
-
+    
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
@@ -32,7 +31,10 @@ public class RegisterModel(AccountService accountService) : PageModel
             ModelState.AddModelError(nameof(Email), "Dit e-mailadres is al in gebruik.");
             return Page();
         }
-        Registered = true;
-        return Page();
+        var reader = await accountService.LoginAsync(Email, Password);
+
+        await ReaderSignIn.SignInAsync(HttpContext, reader!);
+        
+        return RedirectToPage("/Library");
     }
 }
