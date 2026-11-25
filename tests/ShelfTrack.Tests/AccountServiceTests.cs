@@ -33,13 +33,18 @@ public class AccountServiceTests
         var readerRepository = new FakeReaderRepository();
         var accountService = new AccountService(readerRepository, passwordHasher);
         
-        readerRepository.ReaderExists = true;
+        readerRepository.Readers.Add(new Reader
+        {
+            Email = "test@example.com",
+            PasswordHash = "hash-from-password123"
+        });
 
         //Act
         bool result = await accountService.RegisterAsync("test@example.com", "password123");
 
         //Assert
         Assert.False(result);
+        Assert.Single(readerRepository.Readers);    
     }
     
     [Fact]
